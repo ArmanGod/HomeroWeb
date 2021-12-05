@@ -1,0 +1,28 @@
+from django.contrib import admin
+from .models import *
+# Register your models here.
+
+admin.site.register(AuditoriaBd)
+admin.site.register(AuditoriaRack)
+admin.site.register(AuditoriaSala)
+admin.site.register(AuditoriaServicio)
+admin.site.register(AuditoriaServidor)
+admin.site.register(AuditoriaSistema)
+admin.site.register(AuditoriaUsuario)
+admin.site.register(Bd)
+admin.site.register(Documento)
+admin.site.register(Incidente)
+admin.site.register(NivelSeguridad)
+admin.site.register(NivelSensibilidad)
+admin.site.register(PerfilUsuario)
+admin.site.register(Rack)
+admin.site.register(SalaServidor)
+admin.site.register(Servicio)
+admin.site.register(Servidor)
+admin.site.register(Sistema)
+admin.site.register(SysSerDet)
+admin.site.register(SysServDet)
+admin.site.register(TipoBd)
+admin.site.register(TipoServicio)
+admin.site.register(TipoServidor)
+admin.site.register(Usuario)
