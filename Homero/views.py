@@ -44,3 +44,6 @@ def consultaServ(request):
         'servidores': servidores
     }
     return render(request, 'Homero/consultaServidor.html', data)
+
+def adminIncidente(request):
+    return render(request, 'Homero/adminIncidente.html')
