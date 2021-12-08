@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Incidente, Servidor, Sistema, Usuario
 import datetime
 
@@ -51,3 +51,12 @@ def adminIncidente(request):
         'incidentes':incidentes
     }
     return render(request, 'Homero/adminIncidente.html',data3)
+def modificar(request, id):
+    modificar = Incidente.objects.get(id_incidente=id)
+    sistema = Sistema.objects.all()
+    data4 = {
+        'modificar':modificar,
+        'sistema':sistema
+    }
+    return render(request,'Homero/modificar.html',data4)
+    

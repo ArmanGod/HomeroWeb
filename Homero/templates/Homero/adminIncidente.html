@@ -1,28 +1,41 @@
 {% extends 'Homero/base.html' %}
 
 {% load static %}
-
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/estilosincidentes.css' %}">
+{% endblock %}
 {% block contenido %}
-
-<h2>Listado de Incidentes</h2>
-<div class="container ss">
+<button id="myButton" class="float-left submit-button btn-primary" >Agregar</button>
+<div class="container ss" style="text-align:center;">
     <div class="row">
         <div class="col-md-12">
-            <table>
+            <table style="margin: 0 auto;">
+
                 <tr>
                     <th>ID Incidente</th>
                     <th>Nombre Incidente</th>
                     <th>ID Sistema</th>
+                    <th>Fecha del Incidente</th>
                 </tr>
                 {% for i in incidentes %}
                 <tr>
                     <td>{{ i.id_incidente }}</td>
                     <td>{{ i.nombre_incidente }}</td>
                     <td>{{ i.id_sistema }}</td>
+                    <td>{{ i.fecha_inci }}</td>
+                    <td><a href="{% url 'modificar' i.id_incidente %}">Modificar</a></td>
                 </tr>
                 {% endfor %}
             </table>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block js%}
+<script type="text/javascript">
+    document.getElementById("myButton").onclick = function () {
+        location.href = "{% url 'incidentes' %}";
+    };
+</script>
 {% endblock %}

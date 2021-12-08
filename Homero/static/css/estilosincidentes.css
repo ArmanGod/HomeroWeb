@@ -104,3 +104,15 @@ h3.aburre{
 table{
     margin-top: 50px;
 }
+.ss{
+    margin-top: 10%;
+    background: -webkit-linear-gradient(left, rgb(32, 30, 45),rgb(23,21,32));
+    border-radius: 1rem;
+    }
+    .ss th{
+        color: #fff;
+        padding-right: 10px;
+    }
+    .ss td{
+        color: rgb(194, 194, 194);
+    }
