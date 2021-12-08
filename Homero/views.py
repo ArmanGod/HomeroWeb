@@ -53,10 +53,10 @@ def adminIncidente(request):
     return render(request, 'Homero/adminIncidente.html',data3)
 def modificar(request, id):
     modificar = Incidente.objects.get(id_incidente=id)
-    sistema = Sistema.objects.all()
+    sistemas = Sistema.objects.all()
     data4 = {
         'modificar':modificar,
-        'sistema':sistema
+        'sistemas':sistemas
     }
     return render(request,'Homero/modificar.html',data4)
     

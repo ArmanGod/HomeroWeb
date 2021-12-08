@@ -279,7 +279,8 @@ class Incidente(models.Model):
     responsable_solucion = models.CharField(max_length=20)
     id_sistema = models.ForeignKey('Sistema', models.DO_NOTHING, db_column='id_sistema')
     fecha_inci = models.DateField()
-
+    def __str__(self):
+        return self.id_incidente
     class Meta:
         managed = False
         db_table = 'incidente'
@@ -384,6 +385,8 @@ class Sistema(models.Model):
     rut = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='rut')
     id_nivel = models.ForeignKey(NivelSeguridad, models.DO_NOTHING, db_column='id_nivel')
     ordenar = models.FloatField()
+    def __str__(self):
+        return self.id_sistema
 
     class Meta:
         managed = False
