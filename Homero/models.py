@@ -207,6 +207,9 @@ class Bd(models.Model):
     id_sistema = models.ForeignKey('Sistema', models.DO_NOTHING, db_column='id_sistema')
     id_tipo = models.ForeignKey('TipoBd', models.DO_NOTHING, db_column='id_tipo')
 
+    def __str__(self):
+        return self.id_bd
+
     class Meta:
         managed = False
         db_table = 'bd'
@@ -264,6 +267,9 @@ class Documento(models.Model):
     id_servicio = models.ForeignKey('Servicio', models.DO_NOTHING, db_column='id_servicio', blank=True, null=True)
     id_sistema = models.ForeignKey('Sistema', models.DO_NOTHING, db_column='id_sistema', blank=True, null=True)
 
+    def __str__(self):
+        return self.id_documento
+
     class Meta:
         managed = False
         db_table = 'documento'
@@ -279,8 +285,10 @@ class Incidente(models.Model):
     responsable_solucion = models.CharField(max_length=20)
     id_sistema = models.ForeignKey('Sistema', models.DO_NOTHING, db_column='id_sistema')
     fecha_inci = models.DateField()
+
     def __str__(self):
         return self.id_incidente
+
     class Meta:
         managed = False
         db_table = 'incidente'
@@ -290,6 +298,9 @@ class NivelSeguridad(models.Model):
     id_nivel = models.FloatField(primary_key=True)
     nivel = models.FloatField()
     nombre = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.nombre
 
     class Meta:
         managed = False
@@ -301,6 +312,9 @@ class NivelSensibilidad(models.Model):
     nombre_sensibilidad = models.CharField(max_length=20)
     nivel = models.FloatField()
 
+    def __str__(self):
+        return self.nivel
+
     class Meta:
         managed = False
         db_table = 'nivel_sensibilidad'
@@ -310,6 +324,9 @@ class PerfilUsuario(models.Model):
     id_perfil = models.FloatField(primary_key=True)
     tipo_perfil = models.CharField(max_length=20)
     nivel_perfil = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.tipo_perfil
 
     class Meta:
         managed = False
@@ -323,7 +340,10 @@ class Rack(models.Model):
     espacio_total = models.FloatField()
     tipo_rack = models.CharField(max_length=20)
     disponibilidad = models.CharField(max_length=1)
-    id_sala = models.ForeignKey('SalaServidor', models.DO_NOTHING, db_column='id_sala')
+    id_sala = models.ForeignKey('SalaServidor',models.DO_NOTHING, db_column='id_sala')
+
+    def __str__(self):
+        return self.id_rack
 
     class Meta:
         managed = False
@@ -341,9 +361,13 @@ class SalaServidor(models.Model):
     monitoreo = models.CharField(max_length=1)
     pasa_cables = models.CharField(max_length=1)
 
+    def __str__(self):
+        return self.id_sala
+
     class Meta:
         managed = False
         db_table = 'sala_servidor'
+        
 
 
 class Servicio(models.Model):
@@ -351,6 +375,9 @@ class Servicio(models.Model):
     nombre_servicio = models.CharField(max_length=20)
     descripcion = models.CharField(max_length=200, blank=True, null=True)
     id_tipo = models.ForeignKey('TipoServicio', models.DO_NOTHING, db_column='id_tipo')
+
+    def __str__(self):
+        return self.id_servicio
 
     class Meta:
         managed = False
@@ -371,6 +398,9 @@ class Servidor(models.Model):
     rut = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='rut')
     id_tipo = models.ForeignKey('TipoServidor', models.DO_NOTHING, db_column='id_tipo')
 
+    def __str__(self):
+        return self.id_servidor
+
     class Meta:
         managed = False
         db_table = 'servidor'
@@ -385,6 +415,7 @@ class Sistema(models.Model):
     rut = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='rut')
     id_nivel = models.ForeignKey(NivelSeguridad, models.DO_NOTHING, db_column='id_nivel')
     ordenar = models.FloatField()
+
     def __str__(self):
         return self.id_sistema
 
@@ -419,6 +450,9 @@ class TipoBd(models.Model):
     id_tipo = models.FloatField(primary_key=True)
     nombre = models.CharField(max_length=20)
 
+    def __str__(self):
+        return self.nombre
+
     class Meta:
         managed = False
         db_table = 'tipo_bd'
@@ -428,6 +462,9 @@ class TipoServicio(models.Model):
     id_tipo = models.FloatField(primary_key=True)
     nombre = models.CharField(max_length=20)
 
+    def __str__(self):
+        return self.nombre
+
     class Meta:
         managed = False
         db_table = 'tipo_servicio'
@@ -436,6 +473,9 @@ class TipoServicio(models.Model):
 class TipoServidor(models.Model):
     id_tipo = models.FloatField(primary_key=True)
     nombre = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.nombre
 
     class Meta:
         managed = False
@@ -453,6 +493,9 @@ class Usuario(models.Model):
     contrasena = models.CharField(max_length=200)
     cargo = models.CharField(max_length=20)
     id_perfil = models.ForeignKey(PerfilUsuario, models.DO_NOTHING, db_column='id_perfil')
+
+    def __str__(self):
+        return self.rut
 
     class Meta:
         managed = False
