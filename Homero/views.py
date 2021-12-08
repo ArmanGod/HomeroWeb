@@ -46,4 +46,8 @@ def consultaServ(request):
     return render(request, 'Homero/consultaServidor.html', data)
 
 def adminIncidente(request):
-    return render(request, 'Homero/adminIncidente.html')
+    incidentes = Incidente.objects.all()
+    data3 = {
+        'incidentes':incidentes
+    }
+    return render(request, 'Homero/adminIncidente.html',data3)

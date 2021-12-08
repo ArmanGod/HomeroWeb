@@ -4,6 +4,25 @@
 
 {% block contenido %}
 
-
-
+<h2>Listado de Incidentes</h2>
+<div class="container ss">
+    <div class="row">
+        <div class="col-md-12">
+            <table>
+                <tr>
+                    <th>ID Incidente</th>
+                    <th>Nombre Incidente</th>
+                    <th>ID Sistema</th>
+                </tr>
+                {% for i in incidentes %}
+                <tr>
+                    <td>{{ i.id_incidente }}</td>
+                    <td>{{ i.nombre_incidente }}</td>
+                    <td>{{ i.id_sistema }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
