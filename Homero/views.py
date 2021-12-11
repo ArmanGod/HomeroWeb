@@ -1,6 +1,6 @@
 from django import template
 from django.shortcuts import render, redirect
-from .models import Incidente, Servidor, Sistema, Usuario
+from .models import Incidente, Servidor, Sistema, NivelSensibilidad
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
@@ -17,7 +17,8 @@ def correo(request):
     return render(request, 'Homero/correo.html')
 def send_email(mail,sist):
     sistema = Sistema.objects.get(id_sistema=sist)
-    context = {'sist':sist, 'sistema':sistema}
+    nivelSens = NivelSensibilidad.objects.all()
+    context = {'sist':sist, 'sistema':sistema,'nivelSens':nivelSens}
     template = get_template('Homero/correo.html')
     content = template.render(context)
 
@@ -51,11 +52,7 @@ def incidentes(request):
         incidente.fecha_inci = fecha
         mail = request.POST.get('mantenedor')
         sist = request.POST.get('cboSistema')
-        try:
-            incidente.save()
-            send_email(mail,sist)
-        except:
-            data2['mensaje'] = 'No se ha podido guardar'
+        send_email(mail,sist)
 
 
 
