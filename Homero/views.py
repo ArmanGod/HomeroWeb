@@ -1,14 +1,23 @@
 from django import template
 from django.shortcuts import render, redirect
-from .models import Incidente, Servidor, Sistema, NivelSensibilidad
+from .models import Incidente, Servidor, Sistema, NivelSensibilidad, Usuario
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 import   datetime
+import base64
 
 # Create your views here.
 
 def  index(request):
+    if request.method=='POST':
+        inicio = Usuario.objects.get(rut=request.POST['usuario'], contrasena=request.POST['contrasena'])
+        if inicio.cargo == 'informante':
+            request.session['rut']=inicio.rut
+            data5 = {
+                'inicio':inicio,
+            }
+            return render(request, 'Homero/menu.html', data5)
     return render(request, 'Homero/index.html')
 
 def menu(request):

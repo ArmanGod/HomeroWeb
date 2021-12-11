@@ -8,6 +8,7 @@
 from django.db import models
 
 
+
 class AuditoriaBd(models.Model):
     id_aud_bd = models.CharField(primary_key=True, max_length=20)
     id_bd = models.CharField(max_length=20)

@@ -11,39 +11,31 @@
     <title>Login</title>
 </head>
 <body>
-    <div class="container LoginForm">
-        <div class="row">
-            <div class="col-xs-12">
-                <h1 class="form-heading">HOMERO APPS</h1>
-            </div>
+    <form method="POST">
+        <div class="container">
+            <h1>Login</h1>
+            {% csrf_token %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Login</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ingrese Usuario</td>
+                        <td><input type="text" placeholder="Ingrese su Nombre de Usuario" name="usuario" ></td>
+                    </tr>
+                    <tr>
+                        <td>Contraseña</td>
+                        <td><input type="password" placeholder="Ingrese su Contraseña" name="contrasena" ></td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit">Login</button></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="login-form">
-            <div class="main-div">
-                <div class="panel">
-                    <h2>Login Homero Apps</h2>
-                    <p>Por favor ingrese usuario y contraseña</p>
-                </div>
-                <form id="Login">
-                    <div class="input-group form-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        </div>
-                        <input name="usuario" id="usuario" type="text" class="form-control" placeholder="Nombre de Usuario">
-                    </div>
-                    <div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
-						</div>
-						<input name="contrasena" id="contrasena" type="password" class="form-control" placeholder="Contraseña">
-                        
-					</div>
-                    <div class="forgot">
-                        <a href=""> ¿Olvido su contraseña?</a>
-                    </div>
-                    <button type="submit" class="btn btn-primary" >Acceder</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    </form>
 </body>
 </html>
