@@ -58,5 +58,24 @@ def modificar(request, id):
         'modificar':modificar,
         'sistemas':sistemas
     }
+    if request.POST:
+        incidente = Incidente()
+        incidente.id_incidente = request.POST.get('txtId')
+        incidente.tipo_incidente = request.POST.get('tipo')
+        incidente.nombre_incidente = request.POST.get('nombre')
+        incidente.tiempo_inactividad = request.POST.get('tiempo')
+        incidente.responsable_solucion = request.POST.get('mantenedor')
+        sistema = Sistema()
+        sistema.id_sistema = request.POST.get('cboSistema')
+        incidente.id_sistema = sistema
+        incidente.problema = request.POST.get('problema')
+        incidente.solucion = request.POST.get('solucion')
+        fecha = datetime.date.today()
+        incidente.fecha_inci = fecha
+        try:
+            incidente.save()
+        except:
+            data4['mensaje'] = 'No se ha podido Modificar'
+        return redirect('adminIncidente')
     return render(request,'Homero/modificar.html',data4)
     
