@@ -1,6 +1,10 @@
+from django import template
 from django.shortcuts import render, redirect
 from .models import Incidente, Servidor, Sistema, Usuario
-import datetime
+from django.template.loader import get_template
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
+import   datetime
 
 # Create your views here.
 
@@ -9,6 +13,22 @@ def  index(request):
 
 def menu(request):
     return render(request, 'Homero/menu.html')
+def correo(request):
+    return render(request, 'Homero/correo.html')
+def send_email(mail,sist):
+    sistema = Sistema.objects.get(id_sistema=sist)
+    context = {'sist':sist, 'sistema':sistema}
+    template = get_template('Homero/correo.html')
+    content = template.render(context)
+
+    email = EmailMultiAlternatives(
+        'Titulo',
+        'Asunto',
+        settings.EMAIL_HOST_USER,
+        [mail]
+    )
+    email.attach_alternative(content, 'text/html')
+    email.send()
 
 def incidentes(request):
     sistema = Sistema.objects.all()
@@ -29,8 +49,11 @@ def incidentes(request):
         incidente.solucion = request.POST.get('solucion')
         fecha = datetime.date.today()
         incidente.fecha_inci = fecha
+        mail = request.POST.get('mantenedor')
+        sist = request.POST.get('cboSistema')
         try:
             incidente.save()
+            send_email(mail,sist)
         except:
             data2['mensaje'] = 'No se ha podido guardar'
 

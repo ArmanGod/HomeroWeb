@@ -8,4 +8,5 @@ urlpatterns = [
     path('consultaServidor/', views.consultaServ, name="servidores"),
     path('adminIncidente/', views.adminIncidente, name="adminIncidente"),
     path('modificar/<id>/',views.modificar, name="modificar"),
+    path('correo/',views.correo, name="correo"),
 ]
