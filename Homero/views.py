@@ -18,7 +18,7 @@ def  index(request):
         a = inicio.contrasena
         f = base64.b64decode(a).decode('utf-8')
         if f == request.POST['contrasena']:
-            if inicio.cargo == 'informante':
+            if inicio.cargo == 'informante' or inicio.cargo == 'responsable':
                 request.session['rut']=inicio.rut
                 return render(request, 'Homero/menu.html')
             else:
@@ -29,13 +29,12 @@ def menu(request):
     return render(request, 'Homero/menu.html')
 def correo(request):
     return render(request, 'Homero/correo.html')
-def send_email(mail,sist):
+def send_email(mail,sist, nombre):
     sistema = Sistema.objects.get(id_sistema=sist)
     nivelSens = NivelSensibilidad.objects.all()
-    context = {'sist':sist, 'sistema':sistema,'nivelSens':nivelSens}
+    context = {'sist':sist, 'sistema':sistema,'nivelSens':nivelSens, 'nombre':nombre}
     template = get_template('Homero/correo.html')
     content = template.render(context)
-    print(sistema.id_nivel)
     email = EmailMultiAlternatives(
         'Titulo',
         'Asunto',
@@ -56,7 +55,6 @@ def incidentes(request):
         incidente.tipo_incidente = request.POST.get('tipo')
         incidente.nombre_incidente = request.POST.get('nombre')
         incidente.tiempo_inactividad = request.POST.get('tiempo')
-        incidente.responsable_solucion = request.POST.get('mantenedor')
         sistema = Sistema()
         sistema.id_sistema = request.POST.get('cboSistema')
         incidente.id_sistema = sistema
@@ -64,9 +62,15 @@ def incidentes(request):
         incidente.solucion = request.POST.get('solucion')
         fecha = datetime.date.today()
         incidente.fecha_inci = fecha
-        mail = request.POST.get('mantenedor')
+        if incidente.id_sistema == sistema:
+            sistema2 = Sistema.objects.get(id_sistema=incidente.id_sistema)
+            usuario = Usuario.objects.get(rut=sistema2.rut)
+            nombre = usuario.primer_nombre + ' ' + usuario.apellido_paterno
+            incidente.responsable_solucion = nombre
+            mail = usuario.correo_electronico 
         sist = request.POST.get('cboSistema')
-        send_email(mail,sist)
+        incidente.save()
+        send_email(mail,sist,nombre)
 
 
 
