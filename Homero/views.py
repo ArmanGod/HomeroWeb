@@ -117,3 +117,5 @@ def modificar(request, id):
         return redirect('adminIncidente')
     return render(request,'Homero/modificar.html',data4)
     
+def dashboard(request):
+    return render(request, 'Homero/dashboard.html')
