@@ -314,7 +314,7 @@ class NivelSensibilidad(models.Model):
     nivel = models.FloatField()
 
     def __str__(self):
-        return self.nivel
+        return self.nombre_sensibilidad
 
     class Meta:
         managed = False

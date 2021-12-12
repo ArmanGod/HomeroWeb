@@ -7,17 +7,22 @@ from django.conf import settings
 import   datetime
 import base64
 
+
 # Create your views here.
+
+
 
 def  index(request):
     if request.method=='POST':
-        inicio = Usuario.objects.get(rut=request.POST['usuario'], contrasena=request.POST['contrasena'])
-        if inicio.cargo == 'informante':
-            request.session['rut']=inicio.rut
-            data5 = {
-                'inicio':inicio,
-            }
-            return render(request, 'Homero/menu.html', data5)
+        inicio = Usuario.objects.get(rut=request.POST['usuario'])
+        a = inicio.contrasena
+        f = base64.b64decode(a).decode('utf-8')
+        if f == request.POST['contrasena']:
+            if inicio.cargo == 'informante':
+                request.session['rut']=inicio.rut
+                return render(request, 'Homero/menu.html')
+            else:
+                return render(request, 'Homero/menu.html')
     return render(request, 'Homero/index.html')
 
 def menu(request):
@@ -30,7 +35,7 @@ def send_email(mail,sist):
     context = {'sist':sist, 'sistema':sistema,'nivelSens':nivelSens}
     template = get_template('Homero/correo.html')
     content = template.render(context)
-
+    print(sistema.id_nivel)
     email = EmailMultiAlternatives(
         'Titulo',
         'Asunto',

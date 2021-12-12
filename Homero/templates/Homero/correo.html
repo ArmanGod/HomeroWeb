@@ -4,10 +4,10 @@
     </head>
     <body>
         <h1>Se ha producido un incidente para el sistema de ID: {{ sist }}</h1>
-        {% if nivelSens.id_sensibilidad == sistema.id_sensibilidad %}
-            <p >Nivel Sensibilidad:{{ nivelSens.nombre_sensibilidad }}</p>
-        {% endif %}
-        <p>Nivel de Seguridad: </p>
+        <p>Nombre Sistema: {{ sistema.nombre_sistema }}</p>
+        <p >Nivel Sensibilidad: {{ sistema.id_sensibilidad }}</p>
+        <p>Proveedor: {{ sistema.proveedor }}</p>
+        <p>Nivel de Seguridad: {{ sistema.id_nivel }}</p>
         <p></p>
         <p>Se solicita su pronta solución. Se despide Soporte Informatico Homero Apps</p>
     </body>
