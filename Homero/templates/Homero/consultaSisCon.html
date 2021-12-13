@@ -20,11 +20,6 @@
                             <th>Nivel Sensiblidad</th>
                             <th>Nivel Seguridad</th>
                             <th>Rut del Responsable</th>
-                            <th>Id Servidor</th>
-                            <th>Id Rack</th>
-                            <th>Id Sala</th>
-                            <th>Dirección Sala</th>
-                            <th>Tipo de Relación</th>
                         </tr>
                     
                         {% for sist in sistema %}
@@ -36,26 +31,6 @@
                                 <td>{{ sist.id_sensibilidad }}</td>
                                 <td>{{ sist.id_nivel }}</td>
                                 <td>{{ sist.rut }}</td>
-                                <td>
-                                    {% for rac in servidor %}
-                                    {% for sis in sys %}
-                                    {% if rac.id_servidor == sis.id_servidor%}
-                                    {{ rac.id_sala }}
-                                    {% endif %}
-                                    {% endfor %}
-                                    {% endfor %}
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-
-                                </td>
-                                <td>
-                                    
-                                </td>
-                                <td>
-
-                                </td>
                             </tr>   
                         {% endfor %}
                     

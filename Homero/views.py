@@ -14,25 +14,27 @@ from django.db.models import Count
 
 # Create your views here.
 
-
 def  index(request):
-    if request.method=='POST':
-        inicio = Usuario.objects.get(rut=request.POST['usuario'])
-        a = inicio.contrasena
-        f = base64.b64decode(a).decode('utf-8')
-        if f == request.POST['contrasena']:
-            if inicio.cargo == 'Informante' or inicio.cargo == 'Responsable':
-                request.session['rut']=inicio.rut
-                return render(request, 'Homero/menu.html')
-            if inicio.cargo == 'Consultor':
-                request.session['rut']=inicio.rut
-                return render(request, 'Homero/menuCon.html')
-            if inicio.cargo == 'Mantenedor':
-                request.session['rut']=inicio.rut
-                return render(request, 'Homero/menuMan.html')
-            if inicio.cargo == 'Administrador':
-                request.session['rut']=inicio.rut
-                return render(request, 'Homero/menuAdmin.html')           
+    try:
+        if request.method=='POST':
+            inicio = Usuario.objects.get(rut=request.POST['usuario'])
+            a = inicio.contrasena
+            f = base64.b64decode(a).decode('utf-8')
+            if f == request.POST['contrasena']:
+                if inicio.cargo == 'Informante' or inicio.cargo == 'Responsable':
+                    request.session['rut']=inicio.rut
+                    return render(request, 'Homero/menu.html')
+                if inicio.cargo == 'Consultor':
+                    request.session['rut']=inicio.rut
+                    return render(request, 'Homero/menuCon.html')
+                if inicio.cargo == 'Mantenedor':
+                    request.session['rut']=inicio.rut
+                    return render(request, 'Homero/menuMan.html')
+                if inicio.cargo == 'Administrador':
+                    request.session['rut']=inicio.rut
+                    return render(request, 'Homero/menuAdmin.html')
+    except:
+            return render(request, 'Homero/index.html')     
     return render(request, 'Homero/index.html')
 def menuAdmin(request):
     return render(request, 'Homero/menuAdmin.html')
@@ -100,8 +102,11 @@ def incidentes(request):
             incidente.responsable_solucion = nombre
             mail = usuario.correo_electronico 
         sist = request.POST.get('cboSistema')
-        incidente.save()
-        send_email(mail,sist,nombre)
+        try:
+            incidente.save()
+            send_email(mail,sist,nombre)
+        except:
+            return render(request, 'Homero/adminIncidentes.html')
     return render(request, 'Homero/incidentes.html', data2)
 
 def incidentesServ(request):
@@ -128,8 +133,11 @@ def incidentesServ(request):
         incidente.responsable_solucion = nombre
         mail = usuario.correo_electronico
         servs = request.POST.get('cboServidor')
-        incidente.save()
-        send_email2(mail,servs,nombre)
+        try:
+            incidente.save()
+            send_email(mail,servs,nombre)
+        except:
+            return render(request, 'Homero/adminIncidentes.html')
     return render(request,'Homero/incidentesServ.html',data)
 
 def consultaSisCon(request):
@@ -216,8 +224,11 @@ def modificarServ(request, id):
         usuario = Usuario.objects.get(rut=servidor2.rut)
         nombre = usuario.primer_nombre + ' ' + usuario.apellido_paterno
         incidente.responsable_solucion = nombre
-        incidente.save()
-        return redirect('adminIncidente')
+        try:
+            incidente.save()
+            return redirect('adminIncidente')
+        except:
+            return render(request, 'Homero/adminIncidentes.html')
     return render(request, 'Homero/modificarServ.html', data)
 
 def modificar(request, id):
@@ -245,8 +256,11 @@ def modificar(request, id):
             usuario = Usuario.objects.get(rut=sistema2.rut)
             nombre = usuario.primer_nombre + ' ' + usuario.apellido_paterno
             incidente.responsable_solucion = nombre
-        incidente.save()
-        return redirect('adminIncidente')
+        try:
+            incidente.save()
+            return redirect('adminIncidente')
+        except:
+            return render(request, 'Homero/adminIncidentes.html')
     return render(request,'Homero/modificar.html',data4)
 
 def dashboard(request,**kwargs):
