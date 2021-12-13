@@ -11,4 +11,6 @@ urlpatterns = [
     path('correo/',views.correo, name="correo"),
     path('dashboard/',views.dashboard, name="dashboard"),
     path('dashboard2/',views.dashboard2, name="dashboard2"),
+    path('incidentesServ/',views.incidentesServ, name="incidentesServ"),
+    path('correo2/',views.correo2, name="correo2"),
 ]

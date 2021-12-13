@@ -31,11 +31,27 @@ def menu(request):
     return render(request, 'Homero/menu.html')
 def correo(request):
     return render(request, 'Homero/correo.html')
+def correo2(request):
+    return render(request, 'Homero/correo2.html')
 def send_email(mail,sist, nombre):
     sistema = Sistema.objects.get(id_sistema=sist)
     nivelSens = NivelSensibilidad.objects.all()
     context = {'sist':sist, 'sistema':sistema,'nivelSens':nivelSens, 'nombre':nombre}
     template = get_template('Homero/correo.html')
+    content = template.render(context)
+    email = EmailMultiAlternatives(
+        'Titulo',
+        'Asunto',
+        settings.EMAIL_HOST_USER,
+        [mail]
+    )
+    email.attach_alternative(content, 'text/html')
+    email.send()
+
+def send_email2(mail,servs,nombre):
+    servidor = Servidor.objects.get(id_servidor = servs)
+    context = {'servs':servs,'servidor':servidor,'nombre':nombre}
+    template = get_template('Homero/correo2.html')
     content = template.render(context)
     email = EmailMultiAlternatives(
         'Titulo',
@@ -73,10 +89,36 @@ def incidentes(request):
         sist = request.POST.get('cboSistema')
         incidente.save()
         send_email(mail,sist,nombre)
-
-
-
     return render(request, 'Homero/incidentes.html', data2)
+
+def incidentesServ(request):
+    servidor = Servidor.objects.all()
+    data = {
+        'servidor': servidor
+    }
+    if request.POST:
+        incidente = Incidente()
+        incidente.id_incidente = "asd"
+        incidente.tipo_incidente = request.POST.get('tipo')
+        incidente.nombre_incidente = request.POST.get('nombre')
+        incidente.tiempo_inactividad = request.POST.get('tiempo')
+        servidor = Servidor()
+        servidor.id_servidor = request.POST.get('cboServidor')
+        incidente.id_servidor = request.POST.get('cboServidor')
+        fecha = datetime.date.today()
+        incidente.fecha_inci = fecha
+        print(incidente.id_servidor)
+        print(servidor)
+        print("hola")
+        servidor2 = Servidor.objects.get(id_servidor = incidente.id_servidor)
+        usuario = Usuario.objects.get(rut=servidor2.rut)
+        nombre = usuario.primer_nombre + ' ' + usuario.apellido_paterno
+        incidente.responsable_solucion = nombre
+        mail = usuario.correo_electronico
+        servs = request.POST.get('cboServidor')
+        incidente.save()
+        send_email2(mail,servs,nombre)
+    return render(request,'Homero/incidentesServ.html',data)
 
 def consultaServ(request):
     servidores = Servidor.objects.all()
