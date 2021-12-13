@@ -1,11 +1,13 @@
 from django import template
 from django.shortcuts import render, redirect
-from .models import Incidente, Servidor, Sistema, NivelSensibilidad, Usuario
+from .models import Incidente, SalaServidor, Servidor, Sistema, NivelSensibilidad, Usuario, SysSerDet, Rack, SalaServidor
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
-import   datetime
+import datetime
 import base64
+from django.db.models import Count
+
 
 
 # Create your views here.
@@ -78,8 +80,12 @@ def incidentes(request):
 
 def consultaServ(request):
     servidores = Servidor.objects.all()
+    rack = Rack.objects.all()
+    sala = SalaServidor.objects.all()
     data = {
-        'servidores': servidores
+        'servidores': servidores,
+        'rack':rack,
+        'sala':sala
     }
     return render(request, 'Homero/consultaServidor.html', data)
 
@@ -116,6 +122,33 @@ def modificar(request, id):
             data4['mensaje'] = 'No se ha podido Modificar'
         return redirect('adminIncidente')
     return render(request,'Homero/modificar.html',data4)
-    
-def dashboard(request):
-    return render(request, 'Homero/dashboard.html')
+
+def dashboard(request,**kwargs):
+    from datetime import datetime
+    data2 = []
+    fecha = datetime.now().year
+    for m in range(1, 13):
+        total = Incidente.objects.filter(fecha_inci__year = fecha, fecha_inci__month=m).aggregate(r=Count('id_incidente')).get('r')
+        data2.append(total)
+    data = {
+        'data2':data2
+    }
+    return render(request, 'Homero/dashboard.html',data)
+
+def dashboard2(request,**kwargs):
+    data2 = []
+    principal = SysSerDet.objects.filter(tipo_relacion = "Principal").aggregate(r=Count('tipo_relacion')).get('r')
+    secundario = SysSerDet.objects.filter(tipo_relacion = "Secundario").aggregate(r=Count('tipo_relacion')).get('r')
+    contingencia = SysSerDet.objects.filter(tipo_relacion = "Contingencia").aggregate(r=Count('tipo_relacion')).get('r')
+    if principal >= 1:
+        data2.append(principal)
+    if secundario >= 1:
+        data2.append(secundario)
+    if contingencia >= 1:
+        data2.append(contingencia)
+    else:
+        data2.append(0)
+    data = {
+        'data2':data2
+    }
+    return render(request, 'Homero/dashboard2.html',data)

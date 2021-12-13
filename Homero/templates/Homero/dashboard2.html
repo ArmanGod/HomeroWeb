@@ -34,25 +34,16 @@
     },
     xAxis: {
         categories: [
-            'Enero',
-            'Febrero',
-            'Marzo',
-            'Abril',
-            'Mayo',
-            'Junio',
-            'Julio',
-            'Agosto',
-            'Septiembre',
-            'Octubre',
-            'Noviembre',
-            'Diciembre'
+            'Principales',
+            'Secundarios',
+            'Contingencia',
         ],
         crosshair: true
     },
     yAxis: {
         min: 0,
         title: {
-            text: 'Cantidad de Incidentes'
+            text: 'Cantidad de Servidores'
         }
     },
     tooltip: {
@@ -70,7 +61,7 @@
         }
     },
     series: [{
-        name: 'Incidentes',
+        name: 'Servidores',
         colorByPoint: true,
         showInLegend: false,
         data: {{ data2 }}

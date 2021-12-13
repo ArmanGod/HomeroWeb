@@ -5,46 +5,63 @@
 <link rel="stylesheet" href="{% static 'css/estilosincidentes.css' %}">
 {% endblock %}
 {% block contenido %}
-<div class="container ss">
+<br><br><br><br>
+<div class="container">
     <div class="row">
         <div class="col-md-12">
-            <table>
-                <tr>
-                    <th>Id Servidor</th>
-                    <th>Nombre Servidor</th>
-                    <th>Sistema Operativo</th>
-                    <th>Capacidad del Disco</th>
-                    <th>Memoria Ram</th>
-                    <th>Garantia</th>
-                    <th>Contraseña de Admin</th>
-                    <th>Dirección IP</th>
-                    <th>Rut del Mantenedor</th>
-                    <th>ID Rack</th>
-                    <th>Rut</th>
-                    <th>ID Tipo Servidor</th>
-                </tr>
-            
-                {% for p in servidores %}
-                    <tr>
-                        <td>{{ p.id_servidor }}</td>
-                        <td>{{ p.nombre_servidor }}</td>
-                        <td>{{ p.sistema_operativo }}</td>
-                        <td>{{ p.capacidad_disco }}</td>
-                        <td>{{ p.ram }}</td>
-                        <td>{{ p.garan }}</td>
-                        <td>{{ p.contrasena_admin }}</td>
-                        <td>{{ p.direccion_ip }}</td>
-                        <td>{{ p.rut_mantenedor }}</td>
-                        <td>{{ p.id_rack }}</td>
-                        <td>{{ p.rut }}</td>
-                        <td>{{ p.id_tipo }}</td>
-                    </tr>
-                {% endfor %}
-            
-            </table>
+            <div class="card">
+                <div class="card-body">
+                    <h2>Listado de Servidores</h2>
+                    <hr>
+                    <table class="table table-striped table-hover table-responsive-sm">
+                        <tr>
+                            <th>Id Servidor</th>
+                            <th>Nombre Servidor</th>
+                            <th>En Rack</th>
+                            <th>En Sala Servidor</th>
+                            <th>Dirección Sala</th>
+                            <th>Sistema Operativo</th>
+                            <th>Garantia</th>
+                            <th>Contraseña de Admin</th>
+                            <th>Dirección IP</th>
+                            <th>Rut del Responsable</th>
+                        </tr>
+                    
+                        {% for serv in servidores %}
+                            <tr>
+                                <td>{{ serv.id_servidor }}</td>
+                                <td>{{ serv.nombre_servidor }}</td>
+                                <td>{{ serv.id_rack }}</td>
+                                <td>
+                                    {% for rac in rack %}
+                                    {% if serv.id_rack == rac%}
+                                    {{ rac.id_sala }}
+                                    {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    {% for rac in rack %}
+                                    {% if serv.id_rack == rac%}
+                                    {% for sal in sala%}
+                                    {% if rac.id_sala == sal %}
+                                    {{ sal.direccion }}
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>{{ serv.ram }}</td>
+                                <td>{{ serv.garan }}</td>
+                                <td>{{ serv.contrasena_admin }}</td>
+                                <td>{{ serv.direccion_ip }}</td>
+                                <td>{{ serv.rut }}</td>
+                            </tr>   
+                        {% endfor %}
+                    
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-
 {% endblock %}

@@ -1,31 +1,48 @@
 {% extends 'Homero/base.html' %}
 
 {% load static %}
+
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/estilosincidentes.css' %}">
 {% endblock %}
-{% block contenido %}
-<button id="myButton" class="float-left submit-button btn-primary" >Agregar</button>
-<div class="container ss" style="text-align:center;">
-    <div class="row">
-        <div class="col-md-12">
-            <table style="margin: 0 auto;">
 
+{% block contenido %}
+<br><br><br><br>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2>Listado de Incidentes</h2>
+                </div>
+                <div class="col-md-2">
+                    <button id="myButton" class="float-left submit-button btn-primary" >Nuevo Incidente en Sistema</button>
+                </div>
+                <div class="col-md-2">
+                    <button id="myButton" class="float-left submit-button btn-info" >Nuevo Incidente en Servidor</button>
+                </div>
+            </div>
+            <hr>
+            <table class="table table-striped table-hover table-responsive-sm">
                 <tr>
                     <th>ID Incidente</th>
                     <th>Nombre Incidente</th>
                     <th>ID Sistema</th>
+                    <th>ID Servidor</th>
                     <th>Fecha del Incidente</th>
+                    <th>Modificar</th>
                 </tr>
                 {% for i in incidentes %}
                 <tr>
                     <td>{{ i.id_incidente }}</td>
                     <td>{{ i.nombre_incidente }}</td>
                     <td>{{ i.id_sistema }}</td>
+                    <td></td>
                     <td>{{ i.fecha_inci }}</td>
                     <td><a href="{% url 'modificar' i.id_incidente %}">Modificar</a></td>
                 </tr>
                 {% endfor %}
+            
             </table>
         </div>
     </div>
@@ -39,3 +56,4 @@
     };
 </script>
 {% endblock %}
+
