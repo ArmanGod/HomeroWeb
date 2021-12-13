@@ -38,7 +38,6 @@ body{
 .btn.btn-dark:hover{
     background-color: rgb(255, 33, 33);
 }
-
 .btn.btn-primary {
     background: rgb(33, 80, 226);
     border-color: rgba(33, 81, 226, 0.336);
@@ -68,29 +67,26 @@ select {
     height: 30px;
     padding: 5px;
     width: 100%;
- }
-
+}
 .caja:hover{
     border-top-left-radius: 1rem;
 }
 .sol{
     border-bottom-left-radius: 0;
 }
-
 .navbar-dark{
     background: -webkit-linear-gradient(left, rgb(32, 30, 45),rgb(23,21,32));
 }
 li:hover{
     background: rgb(80, 79, 92);
 }
-
 .b-example-divider {
     height: 3rem;
     background-color: rgba(0, 0, 0, .1);
     border: solid rgba(0, 0, 0, .15);
     border-width: 1px 0;
     box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-  }
+}
 .letra{
     color: #fff;
 }
@@ -100,7 +96,6 @@ li:hover{
 h3.aburre{
     color: #fff;
 }
-
 table{
     margin-top: 50px;
 }
@@ -115,4 +110,7 @@ table{
 }
 .ss td{
     color: rgb(194, 194, 194);
+}
+.color{
+    color: #fff;
 }

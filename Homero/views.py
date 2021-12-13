@@ -108,7 +108,6 @@ def modificar(request, id):
         incidente.tipo_incidente = request.POST.get('tipo')
         incidente.nombre_incidente = request.POST.get('nombre')
         incidente.tiempo_inactividad = request.POST.get('tiempo')
-        incidente.responsable_solucion = request.POST.get('mantenedor')
         sistema = Sistema()
         sistema.id_sistema = request.POST.get('cboSistema')
         incidente.id_sistema = sistema

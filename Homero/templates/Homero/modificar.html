@@ -1,15 +1,10 @@
 {% extends 'Homero/base.html' %}
 
 {% load static %}
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/estilosincidentes.css' %}">
-{% endblock %}
+
 {% block contenido %}
 
 <div class="container contact-form">
-    <div class="contact-image">
-        <img src="../static/img/logo8.PNG" alt="rocket_contact"/>
-    </div>
     <form action="" method="post">
         {% csrf_token %}
         <input type="hidden" name="txtId" id="txtId" value="{{ modificar.id_incidente }}">
@@ -17,18 +12,19 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
+                    <p class="color">Tipo Incidente</p>
                     <input type="text" class="form-control" placeholder="Tipo Incidente" value="{{ modificar.tipo_incidente }}" name="tipo" id="tipo"/>
                 </div>
                 <div class="form-group">
+                    <p class="color">Nombre Incidente</p>
                     <input type="text" class="form-control" placeholder="Nombre Incidente" value="{{ modificar.nombre_incidente }}" name="nombre" id="nombre"/>
                 </div>
                 <div class="form-group">
+                    <p class="color">Tiempo de Inactividad</p>
                     <input type="text" class="form-control" placeholder="Tiempo de Inactividad" value="{{ modificar.tiempo_inactividad }}" name="tiempo" id="tiempo"/>
                 </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Correo Responsable Mantenedor" value="{{ modificar.responsable_solucion }}" name="mantenedor" id="mantenedor"/>
-                </div>
                 <div class="form-group caja">
+                    <p class="color">ID Sistema</p>
                     <select name="cboSistema" id="cboSistema">
 
                         {% for m in sistemas %}
@@ -45,9 +41,11 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
+                    <p class="color">Especifique el Problema</p>
                     <textarea  class="form-control" placeholder="Problema" style="width: 100%; height: 120px;" name="problema" id="problema">{{ modificar.problema }}</textarea>
                 </div>
                 <div class="form-group">
+                    <p class="color">Especifique la Solución</p>
                     <textarea  class="form-control sol" placeholder="Solución" style="width: 100%; height: 120px;" name="solucion" id="solucion">{{ modificar.solucion }}</textarea>
                 </div>
             </div>

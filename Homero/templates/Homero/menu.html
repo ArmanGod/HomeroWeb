@@ -2,21 +2,17 @@
 
 {% load static %}
 
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/estilosincidentes.css' %}">
-{% endblock %}
-
 {% block contenido %}
 <div class="container-fluid">
     <div class="b-example-divider"></div>
     <div class="container my-5">
         <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
             <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
-                <h1 class="display-4 fw-bold lh-1 letra">Registro Incidentes</h1>
+                <h1 class="display-4 fw-bold lh-1 letra">Administración de Incidentes</h1>
                 <p class="lead letra">En esta sección se registran los incidentes</p>
             </div>
             <div class="col-lg-3">
-                <a href="{% url 'incidentes' %}"><img class="rounded-lg-3" src="../static/img/incidentes.jpg" alt="" width="420"></a>
+                <a href="{% url 'adminIncidente' %}"><img class="rounded-lg-3" src="../static/img/incidentes.jpg" alt="" width="420"></a>
             </div>
         </div>
     </div>
