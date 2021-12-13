@@ -107,9 +107,8 @@ def incidentesServ(request):
         incidente.id_servidor = request.POST.get('cboServidor')
         fecha = datetime.date.today()
         incidente.fecha_inci = fecha
-        print(incidente.id_servidor)
-        print(servidor)
-        print("hola")
+        incidente.problema = request.POST.get('problema')
+        incidente.solucion =request.POST.get('solucion')
         servidor2 = Servidor.objects.get(id_servidor = incidente.id_servidor)
         usuario = Usuario.objects.get(rut=servidor2.rut)
         nombre = usuario.primer_nombre + ' ' + usuario.apellido_paterno
@@ -137,6 +136,35 @@ def adminIncidente(request):
         'incidentes':incidentes
     }
     return render(request, 'Homero/adminIncidente.html',data3)
+
+def modificarServ(request, id):
+    modificar = Incidente.objects.get(id_incidente=id)
+    servidores = Servidor.objects.all()
+    data = {
+        'modificar':modificar,
+        'servidores':servidores
+    }
+    if request.POST:
+        incidente = Incidente()
+        incidente.id_incidente = request.POST.get('txtId')
+        incidente.tipo_incidente = request.POST.get('tipo')
+        incidente.nombre_incidente = request.POST.get('nombre')
+        incidente.tiempo_inactividad = request.POST.get('tiempo')
+        servidor = Servidor()
+        servidor.id_servidor = request.POST.get('cboServidor')
+        incidente.id_servidor = request.POST.get('cboServidor')
+        fecha = datetime.date.today()
+        incidente.fecha_inci = fecha
+        incidente.problema = request.POST.get('problema')
+        incidente.solucion =request.POST.get('solucion')
+        servidor2 = Servidor.objects.get(id_servidor = incidente.id_servidor)
+        usuario = Usuario.objects.get(rut=servidor2.rut)
+        nombre = usuario.primer_nombre + ' ' + usuario.apellido_paterno
+        incidente.responsable_solucion = nombre
+        incidente.save()
+        return redirect('adminIncidente')
+    return render(request, 'Homero/modificarServ.html', data)
+
 def modificar(request, id):
     modificar = Incidente.objects.get(id_incidente=id)
     sistemas = Sistema.objects.all()
@@ -157,10 +185,12 @@ def modificar(request, id):
         incidente.solucion = request.POST.get('solucion')
         fecha = datetime.date.today()
         incidente.fecha_inci = fecha
-        try:
-            incidente.save()
-        except:
-            data4['mensaje'] = 'No se ha podido Modificar'
+        if incidente.id_sistema == sistema:
+            sistema2 = Sistema.objects.get(id_sistema=incidente.id_sistema)
+            usuario = Usuario.objects.get(rut=sistema2.rut)
+            nombre = usuario.primer_nombre + ' ' + usuario.apellido_paterno
+            incidente.responsable_solucion = nombre
+        incidente.save()
         return redirect('adminIncidente')
     return render(request,'Homero/modificar.html',data4)
 

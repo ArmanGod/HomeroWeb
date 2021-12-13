@@ -24,16 +24,16 @@
                     <input type="text" class="form-control" placeholder="Tiempo de Inactividad" value="{{ modificar.tiempo_inactividad }}" name="tiempo" id="tiempo"/>
                 </div>
                 <div class="form-group caja">
-                    <p class="color">ID Sistema</p>
-                    <select name="cboSistema" id="cboSistema">
+                    <p class="color">ID Servidor</p>
+                    <select name="cboServidor" id="cboServidor">
 
-                        {% for m in sistemas %}
-                            <option   
-                            value="{{ m.id_sistema }}"
-                            {% if modificar.id_sistema == m %}
-                            selected
-                            {% endif %}
-                            >{{ m.id_sistema }}</option>
+                        {% for m in servidores %}
+                        <option   
+                        value="{{ m.id_servidor }}"
+                        {% if modificar.id_servidor == m.id_servidor %}
+                        selected
+                        {% endif %}
+                        >{{ m.id_servidor }}</option>
 
                         {% endfor %}
                     </select>

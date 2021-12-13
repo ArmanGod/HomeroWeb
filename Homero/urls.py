@@ -13,4 +13,5 @@ urlpatterns = [
     path('dashboard2/',views.dashboard2, name="dashboard2"),
     path('incidentesServ/',views.incidentesServ, name="incidentesServ"),
     path('correo2/',views.correo2, name="correo2"),
+    path('modificarServ/<id>/',views.modificarServ, name="modificarServ")
 ]

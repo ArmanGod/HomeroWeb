@@ -32,10 +32,18 @@
                 <tr>
                     <td>{{ i.id_incidente }}</td>
                     <td>{{ i.nombre_incidente }}</td>
+                    {% if i.id_sistema == null %}
+                    <td> </td>
+                    {% else %}
                     <td>{{ i.id_sistema }}</td>
-                    <td></td>
+                    {% endif %}
+                    <td>{{ i.id_servidor }}</td>
                     <td>{{ i.fecha_inci }}</td>
+                    {% if i.id_sistema ==  null %}
+                    <td><a href="{% url 'modificarServ' i.id_incidente %}">Modificar</a></td>
+                    {% else %}
                     <td><a href="{% url 'modificar' i.id_incidente %}">Modificar</a></td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             
