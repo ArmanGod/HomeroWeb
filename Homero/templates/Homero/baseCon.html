@@ -15,20 +15,17 @@
     <body>
       <nav class="navbar navbar-expand-lg navbar-dark bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{% url 'menu' %}"><img src="../static/img/logo7v1.png" alt="" class="logo">  Homero Apps</a>
+          <a class="navbar-brand" href="{% url 'menuCon' %}"><img src="../static/img/logo7v1.png" alt="" class="logo">  Homero Apps</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'adminIncidente' %}">Administrar Incidentes</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'consultaServCon' %}">Consultar Servidor</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'servidores' %}">Consultar Servidor</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'consultaSistema' %}">Consultar Sistemas</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'consultaSisCon' %}">Consultar Sistemas</a>
               </li>
             </ul>
             <form class="d-flex">

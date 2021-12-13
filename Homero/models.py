@@ -424,6 +424,9 @@ class SysSerDet(models.Model):
     id_sistema = models.ForeignKey(Sistema, models.DO_NOTHING, db_column='id_sistema')
     tipo_relacion = models.CharField(max_length=20, blank=True, null=True)
 
+    def __str__(self):
+        return self.id_sistema
+        
     class Meta:
         managed = False
         db_table = 'sys_ser_det'

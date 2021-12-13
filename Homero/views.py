@@ -1,5 +1,7 @@
 from django import template
 from django.shortcuts import render, redirect
+
+from HomeroWeb.settings import DATABASES
 from .models import Incidente, SalaServidor, Servidor, Sistema, NivelSensibilidad, Usuario, SysSerDet, Rack, SalaServidor
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
@@ -13,22 +15,33 @@ from django.db.models import Count
 # Create your views here.
 
 
-
 def  index(request):
     if request.method=='POST':
         inicio = Usuario.objects.get(rut=request.POST['usuario'])
         a = inicio.contrasena
         f = base64.b64decode(a).decode('utf-8')
         if f == request.POST['contrasena']:
-            if inicio.cargo == 'informante' or inicio.cargo == 'responsable':
+            if inicio.cargo == 'Informante' or inicio.cargo == 'Responsable':
                 request.session['rut']=inicio.rut
                 return render(request, 'Homero/menu.html')
-            else:
-                return render(request, 'Homero/menu.html')
+            if inicio.cargo == 'Consultor':
+                request.session['rut']=inicio.rut
+                return render(request, 'Homero/menuCon.html')
+            if inicio.cargo == 'Mantenedor':
+                request.session['rut']=inicio.rut
+                return render(request, 'Homero/menuMan.html')
+            if inicio.cargo == 'Administrador':
+                request.session['rut']=inicio.rut
+                return render(request, 'Homero/menuAdmin.html')           
     return render(request, 'Homero/index.html')
-
+def menuAdmin(request):
+    return render(request, 'Homero/menuAdmin.html')
+def menuMan(request):
+    return render(request, 'Homero/menuMan.html')
 def menu(request):
     return render(request, 'Homero/menu.html')
+def menuCon(request):
+    return render(request, 'Homero/menuCon.html')
 def correo(request):
     return render(request, 'Homero/correo.html')
 def correo2(request):
@@ -119,6 +132,48 @@ def incidentesServ(request):
         send_email2(mail,servs,nombre)
     return render(request,'Homero/incidentesServ.html',data)
 
+def consultaSisCon(request):
+    sistema = Sistema.objects.all()
+    servidor = Servidor.objects.all()
+    sys = SysSerDet.objects.all()
+    data = {
+        'sistema':sistema,
+        'servidor':servidor,
+        'sys':sys
+    }
+    return render(request,'Homero/consultaSisCon.html',data)
+
+def consultaSistema(request):
+    sistema = Sistema.objects.all()
+    servidor = Servidor.objects.all()
+    sys = SysSerDet.objects.all()
+    data = {
+        'sistema':sistema,
+        'servidor':servidor,
+        'sys':sys
+    }
+    return render(request,'Homero/consultaSistema.html',data)
+
+def consultaServCon(request):
+    servidores = Servidor.objects.all()
+    rack = Rack.objects.all()
+    sala = SalaServidor.objects.all()
+    data = {
+        'servidores': servidores,
+        'rack':rack,
+        'sala':sala
+    }
+    return render(request, 'Homero/consultaServCon.html', data)
+def consultarServMan(request):
+    servidores = Servidor.objects.all()
+    rack = Rack.objects.all()
+    sala = SalaServidor.objects.all()
+    data = {
+        'servidores': servidores,
+        'rack':rack,
+        'sala':sala
+    }
+    return render(request, 'Homero/consultarServMan.html', data)
 def consultaServ(request):
     servidores = Servidor.objects.all()
     rack = Rack.objects.all()

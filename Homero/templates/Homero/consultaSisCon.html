@@ -1,0 +1,68 @@
+{% extends 'Homero/baseCon.html' %}
+
+{% load static %}
+
+{% block contenido %}
+<br><br><br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Listado de Sistemas</h2>
+                    <hr>
+                    <table class="table table-striped table-hover table-responsive-sm">
+                        <tr>
+                            <th>Id Sistema</th>
+                            <th>Nombre Sistema</th>
+                            <th>Lenguaje Sistema</th>
+                            <th>Proveedor</th>
+                            <th>Nivel Sensiblidad</th>
+                            <th>Nivel Seguridad</th>
+                            <th>Rut del Responsable</th>
+                            <th>Id Servidor</th>
+                            <th>Id Rack</th>
+                            <th>Id Sala</th>
+                            <th>Dirección Sala</th>
+                            <th>Tipo de Relación</th>
+                        </tr>
+                    
+                        {% for sist in sistema %}
+                            <tr>
+                                <td>{{ sist.id_sistema }}</td>
+                                <td>{{ sist.nombre_sistema }}</td>
+                                <td>{{ sist.lenguaje_sistema }}</td>
+                                <td>{{ sist.proveedor }}</td>
+                                <td>{{ sist.id_sensibilidad }}</td>
+                                <td>{{ sist.id_nivel }}</td>
+                                <td>{{ sist.rut }}</td>
+                                <td>
+                                    {% for rac in servidor %}
+                                    {% for sis in sys %}
+                                    {% if rac.id_servidor == sis.id_servidor%}
+                                    {{ rac.id_sala }}
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+
+                                </td>
+                            </tr>   
+                        {% endfor %}
+                    
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

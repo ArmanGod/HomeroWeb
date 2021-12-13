@@ -13,5 +13,12 @@ urlpatterns = [
     path('dashboard2/',views.dashboard2, name="dashboard2"),
     path('incidentesServ/',views.incidentesServ, name="incidentesServ"),
     path('correo2/',views.correo2, name="correo2"),
-    path('modificarServ/<id>/',views.modificarServ, name="modificarServ")
+    path('modificarServ/<id>/',views.modificarServ, name="modificarServ"),
+    path('consultaSistema/',views.consultaSistema, name="consultaSistema"),
+    path('menuCon/',views.menuCon, name="menuCon"),
+    path('menuMan/',views.menuMan, name="menuMan"),
+    path('menuAdmin/',views.menuAdmin, name="menuAdmin"),
+    path('consultaSisCon/',views.consultaSisCon, name="consultaSisCon"),
+    path('consultaServCon/',views.consultaServCon, name="consultaServCon"),
+    path('consultarServMan/',views.consultarServMan, name="consultarServMan"),
 ]
