@@ -87,7 +87,7 @@ def incidentes(request):
         incidente.id_incidente = "asd"
         incidente.tipo_incidente = request.POST.get('tipo')
         incidente.nombre_incidente = request.POST.get('nombre')
-        incidente.tiempo_inactividad = request.POST.get('tiempo')
+        incidente.tiempo_inactividad = 0
         sistema = Sistema()
         sistema.id_sistema = request.POST.get('cboSistema')
         incidente.id_sistema = sistema
@@ -119,7 +119,7 @@ def incidentesServ(request):
         incidente.id_incidente = "asd"
         incidente.tipo_incidente = request.POST.get('tipo')
         incidente.nombre_incidente = request.POST.get('nombre')
-        incidente.tiempo_inactividad = request.POST.get('tiempo')
+        incidente.tiempo_inactividad = 0
         servidor = Servidor()
         servidor.id_servidor = request.POST.get('cboServidor')
         incidente.id_servidor = request.POST.get('cboServidor')
@@ -135,7 +135,7 @@ def incidentesServ(request):
         servs = request.POST.get('cboServidor')
         try:
             incidente.save()
-            send_email(mail,servs,nombre)
+            send_email2(mail,servs,nombre)
         except:
             return render(request, 'Homero/adminIncidentes.html')
     return render(request,'Homero/incidentesServ.html',data)

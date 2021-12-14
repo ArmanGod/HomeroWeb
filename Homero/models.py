@@ -425,7 +425,7 @@ class SysSerDet(models.Model):
     tipo_relacion = models.CharField(max_length=20, blank=True, null=True)
 
     def __str__(self):
-        return self.id_sistema
+        return self.id_servidor
         
     class Meta:
         managed = False
